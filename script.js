@@ -1,5 +1,5 @@
 
-const API_KEY = '4f14401d8e214579a857b024a6d257d3'
+const API_KEY = '4f14401d8e214579a857b024a6d257d3' // This free API KEY only works on localhost.
 
 let currentPage = 1
 let currentCategory = null
@@ -20,13 +20,19 @@ function fetchNews(isSearching) {
     url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}&category=${category}&page=${currentPage}`
   }
 
-  fetch(url).then(res => res.json()).then(data => {
+  fetch(url)
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      throw new Error('Api not working.')
+    })
+    .then(data => {
     const newsContainer = document.getElementById('newsContainer')
     if (currentPage === 1) {
       newsContainer.innerHTML = ""
     }
-
-    const articlesWithImage = data.articles.filter(art => art.urlToImage)
+    const articlesWithImage = data?.articles?.filter(art => art.urlToImage) || []
 
     if (articlesWithImage.length === 0 || articlesWithImage.length === lastArticleCount) {
       displayNoMoreNews()
