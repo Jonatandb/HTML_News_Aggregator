@@ -44,12 +44,12 @@ function fetchNews(isSearching) {
 
     articlesWithImage.forEach(art => {
       const newsItem = `
-      <div className="newsItem">
-        <div className="newsImage">
+      <div class="newsItem">
+        <div class="newsImage">
           <img src="${art.urlToImage}" alt="${art.title}">
         </div>
-        <div className="newsContent">
-          <div className="info">
+        <div class="newsContent">
+          <div class="info">
             <h5>${art.source.name}</h5>
             <span>|</span>
             <h5>${art.publishedAt}</h5>
@@ -75,15 +75,18 @@ function fetchNews(isSearching) {
 
 function displayNoMoreNews() {
   const newsContainer = document.getElementById('newsContainer')
-  newsContainer.innerHTML += '<p>No more news to load.</p>'
+  newsContainer.innerHTML += '<p id="noMoreNews">No more news to load.</p>'
 }
 
 window.onscroll = function () {
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
-    if (currentKeyword) {
-      fetchNews(true)
-    } else {
-      fetchNews(false)
+  const noMoreNews = document.getElementById('noMoreNews')
+  if(!noMoreNews) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+      if (currentKeyword) {
+        fetchNews(true)
+      } else {
+        fetchNews(false)
+      }
     }
   }
 }
