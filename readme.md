@@ -1,6 +1,7 @@
 
   # HTML News Aggregator 🎶
 
+  #### Note: Free News API Key only works on localhost, can't be used online.
   ---
 
   ## 📺 Preview
